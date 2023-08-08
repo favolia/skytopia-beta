@@ -1,0 +1,18 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "Official Skytopia Resource pack by Defavolia",
+        "name": "Skytopia - Defavolia",
+        "uuid": "fb1bc786-3744-49e4-8983-38ceacda26f3",
+        "version": [1, 0, 0],
+		"min_engine_version": [1, 20, 1]
+    },
+    "modules": [
+        {
+            "description": "Official Skytopia Resource pack by Defavolia",
+            "type": "resources",
+            "uuid": "ef6dadd1-c6d0-445e-a1a4-d08a72e1bd5f",
+            "version": [3, 3, 1]
+        }
+    ]
+}
