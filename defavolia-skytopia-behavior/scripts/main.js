@@ -14,22 +14,24 @@ Skytopia.afterEvents.playerSpawn.subscribe(ev => {
 system.runInterval(() => {
     const mcPlayer = Skytopia.getPlayers();
 
+    let radius = 3
+
     const setLocation = {
         x: -105,
         y: 75,
         z: 80
     };
 
+    radius <= 0 ? 0 : radius - 1
+
     mcPlayer.every(p => {
         let { x, y, z } = p.location;
         
         const digitX = String(x).split('.')[0];
         const digitY = String(y).split('.')[0];
-        const digitZ = String(z).split('.')[0];
+        const digitZ = String(z).split('.')[0];
     
-        const radius = 1;
-    
-        const radiusEntry = Math.abs(digitX - setLocation.x) <= radius &&
+        const radiusEntry = Math.abs(digitX - setLocation.x - 1) <= radius &&
                             Math.abs(digitY - setLocation.y) <= radius &&
                             Math.abs(digitZ - setLocation.z) <= radius;
     
