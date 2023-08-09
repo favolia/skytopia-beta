@@ -1,5 +1,5 @@
 import { world as Skytopia, system } from "@minecraft/server"; 
- import { showActionFormData } from "./functions/Modal/ActionFormData"; 
+import { showActionFormData } from "./functions/Modal/ActionFormData"; 
   
  Skytopia.afterEvents.playerSpawn.subscribe(ev => { 
      const { initialSpawn, player } = ev 
