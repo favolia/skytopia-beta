@@ -1,29 +1,47 @@
-import { world as Skytopia } from "@minecraft/server";
-import { showCompassModal } from "./functions/CompassModal/compassModal";
+import { world as Skytopia, system } from "@minecraft/server";
+import { showActionFormData } from "./functions/Modal/ActionFormData";
 
-const compass = "minecraft:compass"
-Skytopia.afterEvents.itemUse.subscribe(eventData => {
-    const {itemStack: block, source: player} = eventData
-
-    switch (block.typeId) {
-        case compass:
-            showCompassModal(player)
-            break;
-    
-        default:
-            break;
+Skytopia.afterEvents.playerSpawn.subscribe(ev => {
+    const { initialSpawn, player } = ev
+    if (initialSpawn && !player.hasTag('survival')) {
+        system.runTimeout(() => {
+            showActionFormData(player)
+        }, 60)
     }
+
 })
-// const beforeEvents = Skytopia.beforeEvents
+
+system.runInterval(() => {
+    const mcPlayer = Skytopia.getPlayers();
+
+    const setLocation = {
+        x: -105,
+        y: 75,
+        z: 80
+    };
+
+    mcPlayer.every(p => {
+        let { x, y, z } = p.location;
+        
+        const digitX = String(x).split('.')[0];
+        const digitY = String(y).split('.')[0];
+        const digitZ = String(z).split('.')[0];
     
-//     beforeEvents.itemStartUseOn.subscribe(e => {
-//         const {block, source: player} = e
+        const radius = 1;
     
-//         block.typeId == compass ? showCompassModal(player) : "";
-
-//     })
-
-
+        const radiusEntry = Math.abs(digitX - setLocation.x) <= radius &&
+                            Math.abs(digitY - setLocation.y) <= radius &&
+                            Math.abs(digitZ - setLocation.z) <= radius;
+    
+        if (radiusEntry && !p.hasTag('openMenu')) {
+            p.addTag('openMenu');
+            showActionFormData(p);
+        } else if (!radiusEntry && p.hasTag('openMenu')) {
+            p.removeTag('openMenu');
+        }
+    });
+    
+}, 60);
 
 
 
